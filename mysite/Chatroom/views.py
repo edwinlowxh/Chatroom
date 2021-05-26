@@ -10,3 +10,6 @@ def login(request):
 
 def register(request):
     return render(request, "authentication/registration.html")
+
+def chat(request):
+    return render(request, "interface.html");

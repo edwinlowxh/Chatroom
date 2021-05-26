@@ -13,9 +13,7 @@ nav{
 }
 
 main {
-  display: flex;
-  flex-flow: column;
-  height: fill;
+  height: calc(100vh - 56px);
 }
 
 .navbar-nav {

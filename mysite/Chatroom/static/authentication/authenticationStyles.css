@@ -1,3 +1,9 @@
+.main-form{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .heading {
   margin-left: auto;
   margin-right: auto;
@@ -8,16 +14,15 @@
   display: flex;
   text-align: center;
   margin-top: auto;
-  margin-bottom: 0;
+  margin-bottom: auto;
 }
 
-#loginform, #registerform {
-  width: 20%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20%;
+#loginform.form-group, #registerform.form-group {
   display: flex;
   flex-direction: column;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .form-group #login, .form-group #register {

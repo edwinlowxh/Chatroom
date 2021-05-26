@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{%  block script %}{% endblock %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'interface.css' %}">{% endblock %}
+
+{% block title %}Chat ##{% endblock %}
+
+{% block main %}
+<div class = "interface-container">
+  <nav class = "col-md-2 d-none d-md-block bg-light sidebar">
+    <div class = "sidebar-sticky">
+      <ul class = "nav flex-column">
+        <li class = "nav-item">
+          <a class = "nav-link" href="#">Chat1</a>
+        </li>
+
+        <li class = "nav-item">
+          <a class = "nav-link" href="#">Chat2</a>
+        </li>
+
+        <li class = "nav-item">
+          <a class = "nav-link" href="#">Chat3</a>
+        </li>
+
+        <li class = "nav-item">
+          <a class = "nav-link" href="#">Chat4</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="chat-container">
+    Hello World!
+
+  </div>
+</div>
+{% endblock %}

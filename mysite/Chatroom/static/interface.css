@@ -1,0 +1,19 @@
+.interface-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.sidebar {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.nav-item {
+  margin-left: 0;
+  padding:3px;
+}
+
+.nav-link {
+  color: #333;
+}

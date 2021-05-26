@@ -6,14 +6,16 @@
 
 {% block css %}<link rel="stylesheet" href="{% static 'authentication/authenticationStyles.css' %}">{% endblock %}
 
-
 {% block title %}Login{% endblock %}
 
 {% block main %}
+<div class="main-form">
+
   <div class="form">
     <form class="form-group" id="loginform">
       {% csrf_token %}
       <h2>Welcome!</h2>
+
       <div class="input-container">
         <span class="material-icons">person</span>
         <input class="form-control" type="text" name="username" id ="username" placeholder="Username"><br>
@@ -28,7 +30,8 @@
         <span class="material-icons">person</span>
         <button class="form-control" type="submit" name="login" id="login">Login</button>
       </div>
+
     </form>
   </div>
-
+</div>
 {% endblock %}
