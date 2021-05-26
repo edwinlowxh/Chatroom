@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  <!-- Google Web Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+  {% block css %}{% endblock %}
+
+  <!-- title -->
+  <title>{% block title %}{% endblock %}</title>
+
+  <!-- Javascript -->
+  {% block script %}{% endblock %}
+</head>
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand">Chatroom</a>
+      </div>
+      <ul class="navbar-nav" id="navbar-items">
+        <li class="nav-item"><a class="nav-link"  href="#">Page1</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Page2</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Page3</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Page4</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item"><span class="material-icons">app_registration</span><a class="nav-link" href="#">Register</a></li>
+        <li class="nav-item"><span class="material-icons">login</span><a class="nav-link" href="#">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+  <main>
+    {% block main %}{% endblock %}
+  </main>
+</body>

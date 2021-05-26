@@ -1,0 +1,40 @@
+html{
+  height: 100%;
+}
+
+body {
+  font-family: sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+nav{
+  background-color: grey;
+}
+
+main {
+  display: flex;
+  flex-flow: column;
+  height: fill;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.nav-item {
+  display: flex;
+  flex: auto;
+  margin-left: 50px;
+}
+
+.nav-link{
+  color: white;
+}
+
+.material-icons {
+  padding-top: 8px;
+  color: white;
+}

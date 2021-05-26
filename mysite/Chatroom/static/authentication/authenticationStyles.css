@@ -1,0 +1,46 @@
+.heading {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+#loginform, #registerform {
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group #login, .form-group #register {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: lightblue;
+}
+
+.form-group #login:disabled, .form-group #register:disabled {
+  background-color: darkgrey;
+  color: darkgrey;
+}
+
+.form-group .material-icons {
+  color: black;
+  display: inline-block;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 15px;
+}
