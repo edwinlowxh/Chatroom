@@ -13,3 +13,6 @@ def register(request):
 
 def chat(request):
     return render(request, "interface.html");
+
+def new_group(request):
+    return render(request, "newGroup.html");

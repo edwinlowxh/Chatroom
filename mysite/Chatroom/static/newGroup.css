@@ -1,0 +1,39 @@
+.main-form{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.heading {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#newGroupForm {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-group .material-icons {
+  color: black;
+  display: inline-block;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 15px;
+}
