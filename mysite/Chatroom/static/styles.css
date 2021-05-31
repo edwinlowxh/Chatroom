@@ -13,7 +13,7 @@ nav{
 }
 
 main {
-  height: calc(100vh - 56px);
+  height: calc(100vh - 80px);
 }
 
 .navbar-nav {
@@ -25,11 +25,21 @@ main {
 .nav-item {
   display: flex;
   flex: auto;
-  margin-left: 50px;
+  margin-left: 35px;
+  margin-right: 35px;
 }
 
-.nav-link{
+.nav-item .material-icons:hover{
+  color:black;
+}
+
+#nav-link-text{
   color: white;
+  font-weight: bold;
+}
+
+#nav-link-text:hover {
+  color: black;
 }
 
 .material-icons {

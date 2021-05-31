@@ -11,6 +11,7 @@
 
 .nav-item {
   margin-left: 0;
+  margin-top: 10px;
   padding:3px;
 }
 
@@ -49,8 +50,8 @@
 #message-box::-webkit-scrollbar-track {
   /* color of the tracking area */
   border-radius: 20px;       /* roundness of the scroll thumb */
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 #message-box::-webkit-scrollbar-thumb {
@@ -60,8 +61,8 @@
 }
 
 .message-container-message{
-  max-width: calc(100% - 60px);
-	margin-top: auto;
+  max-width: 50%;
+	margin-top: 10px;
 	margin-bottom: auto;
   border-style: solid;
   border-width: thin;
@@ -72,7 +73,7 @@
 	position: relative;
 }
 
-#profile-pic {
+#profile-pic, #chat-profile-pic{
   display: flex; /* or inline-flex */
   align-items: center;
   justify-content: center;
@@ -101,6 +102,17 @@
   font-size: 20px;
   color: black;
   padding-top: 0;
+}
+
+.new-date {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 17px;
+  color: black;
+  border-bottom: solid;
+  border-color: black;
 }
 
 #chat-container-input {
