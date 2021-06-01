@@ -31,6 +31,7 @@ main {
 
 .nav-item .material-icons:hover{
   color:black;
+  cursor: grab;
 }
 
 #nav-link-text{
