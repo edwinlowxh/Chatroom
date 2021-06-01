@@ -16,3 +16,6 @@ def chat(request):
 
 def new_group(request):
     return render(request, "newGroup.html");
+
+def search_users(request):
+    return render(request, "search_users.html");
