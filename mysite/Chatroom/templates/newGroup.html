@@ -22,13 +22,22 @@
       </div>
 
       <div class="input-container">
-        <span class="mr-3 material-icons">password</span>
-        <input class="form-control" type="password" name="password" id="password" placeholder="Password"><br>
+        <span class="mr-3 material-icons">person</span>
+        <select class="form-select" multiple id="users" form="newGroupForm" aria-label="multiple select example">
+          <option value="personA">Person A</option>
+          <option value="personB">Person B</option>
+          <option value="personC">Person C</option>
+          <option value="personA">Person A</option>
+          <option value="personB">Person B</option>
+          <option value="personC">Person C</option>
+        <select>
       </div>
+
+      <span class="select-multiple-instructions">Ctrl + left-click to select multiple</span>
 
       <div class="input-container">
         <span class="mr-3 material-icons">login</span>
-        <button class="form-control" type="submit" name="login" id="login">Login</button>
+        <button class="form-control" type="submit" name="create" id="create">Create</button>
       </div>
 
     </form>

@@ -30,6 +30,34 @@
   display: inline-block;
 }
 
+#users {
+  width: 100%;
+  border-color: lightgrey;
+}
+
+#users::-webkit-scrollbar {
+  width: 10px;
+}
+
+#users::-webkit-scrollbar-track {
+  /* color of the tracking area */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#users::-webkit-scrollbar-thumb {
+  background-color: lightgrey;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  /* creates padding around scroll thumb */
+}
+
+.select-multiple-instructions {
+  font-size: 10px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
 .input-container {
   display: flex;
   flex-direction: row;
