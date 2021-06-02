@@ -4,7 +4,7 @@
 
 {%  block script %}{% endblock %}
 
-{% block css %}<link rel="stylesheet" href="{% static 'search_users.css' %}">{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'search_users_friends.css' %}">{% endblock %}
 
 {% block title %}Users{% endblock %}
 
@@ -31,7 +31,25 @@
   </div>
 
   <div class="user-profile">
-    User profile
+    <div class="circle">
+      <span id="profile-pic">A</span>
+    </div>
+
+    <div class="user-details">
+      <span id="name">Cras</span>
+      <label>Name</label>
+
+      <span id="username">Cras123</span>
+      <label>Username </label>
+
+      <span id="email">Cras@email.com</span>
+      <label>Email </label>
+    </div>
+
+    <div id="send-message">
+      <span class="material-icons" id="send-message-icon">chat</span>
+      <span>Send Message</span>
+    </div>
   </div>
 </div>
 {% endblock %}
