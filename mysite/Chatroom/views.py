@@ -18,4 +18,7 @@ def new_group(request):
     return render(request, "newGroup.html");
 
 def search_users(request):
-    return render(request, "search_users.html");
+    return render(request, "search_users_friends.html");
+
+def friends(request):
+    return render(request, "search_users_friends.html");
