@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from .forms import RegistrationForm
 
 # Create your views here.
 def index(request):
@@ -9,6 +10,13 @@ def login(request):
     return render(request, "authentication/login.html")
 
 def register(request):
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            #return error message if form is not valid
+
     return render(request, "authentication/registration.html")
 
 def chat(request):
