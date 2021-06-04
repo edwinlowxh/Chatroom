@@ -7,6 +7,9 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 def login(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+
     return render(request, "authentication/login.html")
 
 def register(request):
@@ -15,7 +18,9 @@ def register(request):
         if form.is_valid():
             form.save()
         else:
-            #return error message if form is not valid
+            print(form.errors)
+            content = {'form': form}
+            return render(request, "authentication/registration.html", content)
 
     return render(request, "authentication/registration.html")
 
