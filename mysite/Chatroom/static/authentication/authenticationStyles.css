@@ -49,3 +49,8 @@
   width: 100%;
   margin-bottom: 15px;
 }
+
+#error{
+  font-size: 10px;
+  margin-bottom: 10px;
+}

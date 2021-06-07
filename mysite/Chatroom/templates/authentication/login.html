@@ -12,7 +12,7 @@
 <div class="main-form">
 
   <div class="form">
-    <form class="form-group" id="loginform">
+    <form class="form-group" id="loginform" action='/Chatroom/login' method='post'>
       {% csrf_token %}
       <h2>Welcome!</h2>
 
@@ -20,11 +20,13 @@
         <span class="mr-3 material-icons">person</span>
         <input class="form-control" type="text" name="username" id ="username" placeholder="Username"><br>
       </div>
+      <span id="error">{{ errors.username.as_text }}</span>
 
       <div class="input-container">
         <span class="mr-3 material-icons">password</span>
         <input class="form-control" type="password" name="password" id="password" placeholder="Password"><br>
       </div>
+      <span id="error">{{ errors.password.as_text }}</span>
 
       <div class="input-container">
         <span class="mr-3 material-icons">login</span>

@@ -19,26 +19,26 @@
         <span class="mr-3 material-icons">email</span>
         <input class="form-control" type="email" name="email" id ="email" placeholder="E-mail" onkeyup="keyupfunction()"><br>
       </div>
+      <span id="error">{{ errors.email.as_text }}</span>
 
       <div class="input-container">
         <span class="mr-3 material-icons">person</span>
         <input class="form-control" type="text" name="username" id ="username" placeholder="Username" onkeyup="keyupfunction()"><br>
       </div>
-      {{ form.errors.username }}
-
+      <span id="error">{{ errors.username.as_text }}</span>
 
       <div class="input-container">
         <span class="mr-3 material-icons">password</span>
         <input class="form-control" type="password" name="password1" id="password1" placeholder="Password" onkeyup="keyupfunction()"><br>
       </div>
-      {{ form.errors.password1 }}
+      <span id="error">{{ errors.password1.as_text }}</span>
 
 
       <div class="input-container">
         <span class="mr-3 material-icons">password</span>
         <input class="form-control" type="password" name="password2" id="password2" placeholder="Confirm Password" onkeyup="keyupfunction()"><br>
       </div>
-      {{ form.errors.password2 }}
+      <span id="error">{{ errors.password2.as_text }}</span>
 
       <button class="form-control" type="submit" name="register" id="register" disabled="true" >Create Account</button>
     </form>
