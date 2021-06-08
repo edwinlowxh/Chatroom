@@ -14,7 +14,7 @@
   <div class="form">
     <form class="form-group" id="newGroupForm">
       {% csrf_token %}
-      <h2>Welcome!</h2>
+      <h2>Create your new group</h2>
 
       <div class="input-container">
         <span class="mr-3 material-icons">title</span>
@@ -24,12 +24,9 @@
       <div class="input-container">
         <span class="mr-3 material-icons">person</span>
         <select class="form-select" multiple id="users" form="newGroupForm" aria-label="multiple select example">
-          <option value="personA">Person A</option>
-          <option value="personB">Person B</option>
-          <option value="personC">Person C</option>
-          <option value="personA">Person A</option>
-          <option value="personB">Person B</option>
-          <option value="personC">Person C</option>
+          {% for user in Users %}
+            <option value={{ user.username }}>{{ user.username }}</option>
+          {% endfor %}
         <select>
       </div>
 
