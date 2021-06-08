@@ -43,8 +43,12 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item"><span class="material-icons">app_registration</span><a class="nav-link" href="register" id="nav-link-text">Register</a></li>
-        <li class="nav-item"><span class="material-icons">login</span><a class="nav-link" href="login" id="nav-link-text">Login</a></li>
+        {% if request.user.is_authenticated %}
+          <li class="nav-item"><span class="material-icons" href="logout">logout</span><a class="nav-link" href="logout" id="nav-link-text">Logout</a></li>
+        {% else %}
+          <li class="nav-item"><span class="material-icons" href="register">app_registration</span><a class="nav-link" href="register" id="nav-link-text">Register</a></li>
+          <li class="nav-item"><span class="material-icons" href="login">login</span><a class="nav-link" href="login" id="nav-link-text">Login</a></li>
+        {% endif %}
       </ul>
     </div>
   </nav>
