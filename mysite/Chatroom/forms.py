@@ -71,3 +71,13 @@ class LoginForm(forms.Form):
             raise forms.ValidationError('Username does not exist')
         else:
             return username
+
+class NewGroupForm(forms.Form):
+    OPTIONS = ((user.id, user.username) for user in User.objects.all().exclude(is_superuser = True))
+    group_name = forms.CharField(max_length = 50)
+    users_to_add = forms.MultipleChoiceField(widget=forms.SelectMultiple, choices = OPTIONS)
+    def clean_group_name(self):
+        group_name = self.cleaned_data['group_name']
+        if (len(group_name) > 50):
+            raise forms.ValidationError('Group name must be less than 50 characters')
+        return group_name

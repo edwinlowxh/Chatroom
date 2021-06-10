@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegistrationForm, LoginForm
+from .forms import RegistrationForm, LoginForm, NewGroupForm
 
 # Create your views here.
 def index(request):
@@ -54,8 +54,20 @@ def chat(request):
 
 def new_group(request):
     if request.user.is_authenticated:
+        error = False
+        if request.method == "POST":
+            form = NewGroupForm(request.POST)
+            if form.is_valid():
+                print(form.cleaned_data['group_name'])
+                print(form.cleaned_data['users_to_add'])
+                pass
+            else:
+                print(form.errors)
+                error = True;
         users = User.objects.all().exclude(is_superuser = True)
         content = {'Users': users}
+        if (error == True):
+            content['errors'] = form.errors
         return render(request, "newGroup.html", content);
     else:
         return redirect('/Chatroom/login')

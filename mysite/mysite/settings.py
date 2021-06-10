@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Chatroom.apps.ChatroomConfig'
+    'Chatroom.apps.ChatroomConfig',
 ]
 
 MIDDLEWARE = [

@@ -12,25 +12,27 @@
 <div class="main-form">
 
   <div class="form">
-    <form class="form-group" id="newGroupForm">
+    <form class="form-group" id="newGroupForm" action='/Chatroom/new_group' method='post'>
       {% csrf_token %}
       <h2>Create your new group</h2>
 
       <div class="input-container">
         <span class="mr-3 material-icons">title</span>
-        <input class="form-control" type="text" id ="group name" placeholder="Group Name"><br>
+        <input class="form-control" type="text" id ="group_name" name="group_name" placeholder="Group Name" required id="id_group_name"><br>
       </div>
+      <span>{{ errors.group_name.as_text }}</span>
 
       <div class="input-container">
         <span class="mr-3 material-icons">person</span>
-        <select class="form-select" multiple id="users" form="newGroupForm" aria-label="multiple select example">
+        <select class="form-select" id="users_to_add" name="users_to_add" form="newGroupForm" required id="id_users_to_add" multiple>
           {% for user in Users %}
-            <option value={{ user.username }}>{{ user.username }}</option>
+            <option value={{ user.id }}>{{ user.username }}</option>
           {% endfor %}
         <select>
       </div>
 
       <span class="select-multiple-instructions">Ctrl + left-click to select multiple</span>
+      <span>{{ errors.users_to_add.as_text }}</span>
 
       <div class="input-container">
         <span class="mr-3 material-icons">add</span>
