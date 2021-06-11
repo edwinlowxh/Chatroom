@@ -12,6 +12,9 @@
 <div class="main-block">
   <div class="user-list">
     <ol class="list-group">
+      {% for user in Users %}
+        <a href="#" class="list-group-item list-group-item-action" value={{user.username}}>{{user.username}}</a>
+      {% endfor %}
       <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
       <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
       <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
@@ -36,7 +39,7 @@
     </div>
 
     <div class="user-details">
-      <span id="name">Cras</span>
+      <span id="name">{{Users.1.first_name}}</span>
       <label>Name</label>
 
       <span id="username">Cras123</span>
