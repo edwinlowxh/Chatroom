@@ -6,7 +6,7 @@ class groups(models.Model):
     group_name = models.CharField(max_length = 50)
 
     def __str__(self):
-        return group_name
+        return self.group_name
 
 class group_members(models.Model):
     group = models.ForeignKey('groups', on_delete=models.CASCADE)
@@ -16,4 +16,4 @@ class group_members(models.Model):
         ordering=['group']
 
     def __str__(self):
-        return member + " belongs to " + group
+        return self.member.username

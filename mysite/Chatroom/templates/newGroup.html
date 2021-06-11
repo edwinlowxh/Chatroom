@@ -20,7 +20,7 @@
         <span class="mr-3 material-icons">title</span>
         <input class="form-control" type="text" id ="group_name" name="group_name" placeholder="Group Name" required id="id_group_name"><br>
       </div>
-      <span>{{ errors.group_name.as_text }}</span>
+      <span class="error">{{ errors.group_name.as_text }}</span>
 
       <div class="input-container">
         <span class="mr-3 material-icons">person</span>
@@ -32,7 +32,7 @@
       </div>
 
       <span class="select-multiple-instructions">Ctrl + left-click to select multiple</span>
-      <span>{{ errors.users_to_add.as_text }}</span>
+      <span class="error">{{ errors.users_to_add.as_text }}</span>
 
       <div class="input-container">
         <span class="mr-3 material-icons">add</span>

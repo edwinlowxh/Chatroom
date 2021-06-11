@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegistrationForm, LoginForm, NewGroupForm
+from .models import groups, group_members
 
 # Create your views here.
 def index(request):
@@ -58,22 +59,37 @@ def new_group(request):
         if request.method == "POST":
             form = NewGroupForm(request.POST)
             if form.is_valid():
-                print(form.cleaned_data['group_name'])
-                print(form.cleaned_data['users_to_add'])
-                pass
+                group_name = form.cleaned_data['group_name']
+
+                #Create new group in the database
+                new_group = groups(group_name = group_name)
+                new_group.save()
+
+                #Add members
+                for member in form.cleaned_data['users_to_add']:
+                    new_member = group_members(member = User.objects.get(id = member), group = groups.objects.get(group_name = group_name))
+                    new_member.save()
             else:
+                #if form is invalid get errors
                 print(form.errors)
                 error = True;
         users = User.objects.all().exclude(is_superuser = True)
         content = {'Users': users}
         if (error == True):
+            #return errors
             content['errors'] = form.errors
         return render(request, "newGroup.html", content);
     else:
         return redirect('/Chatroom/login')
 
 def search_users(request):
-    return render(request, "search_users_friends.html");
+    if request.user.is_authenticated:
+        content = {'Users': User.objects.all().exclude(is_superuser = True).values('id', 'username', 'first_name', 'last_name', 'email')}
+        print(content['Users'])
+        return render(request, "search_users_friends.html", content);
+    else:
+        return redirect('/Chatroom/login')
+
 
 def friends(request):
     return render(request, "search_users_friends.html");
