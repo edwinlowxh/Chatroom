@@ -1,9 +1,10 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegistrationForm, LoginForm, NewGroupForm
 from .models import groups, group_members
+import json
 
 # Create your views here.
 def index(request):
@@ -84,9 +85,15 @@ def new_group(request):
 
 def search_users(request):
     if request.user.is_authenticated:
-        content = {'Users': User.objects.all().exclude(is_superuser = True).values('id', 'username', 'first_name', 'last_name', 'email')}
-        print(content['Users'])
-        return render(request, "search_users_friends.html", content);
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
+            user_id = json.load(request)['user_id']
+            #Query for user using user_id
+
+            #Send back
+        else:
+            content = {'Users': User.objects.all().exclude(is_superuser = True).values('id', 'username', 'first_name', 'last_name', 'email')}
+            #print(content['Users'])
+            return render(request, "search_users_friends.html", content);
     else:
         return redirect('/Chatroom/login')
 

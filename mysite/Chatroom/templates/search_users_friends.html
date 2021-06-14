@@ -12,8 +12,9 @@
 <div class="main-block">
   <div class="user-list">
     <ol class="list-group">
+      {% csrf_token %}
       {% for user in Users %}
-        <a href="#" class="list-group-item list-group-item-action" value={{user.username}}>{{user.username}}</a>
+        <a href="#" class="list-group-item list-group-item-action" value={{user.id}}>{{user.username}}</a>
       {% endfor %}
       <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
       <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
