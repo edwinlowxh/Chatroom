@@ -8,7 +8,7 @@ $(document).ready(()=> {
   }
 
   $(".list-group-item").click(e=> {
-    alert($(e.currentTarget).attr("value"));
+    //alert($(e.currentTarget).attr("value"));
     var user_id = $(e.currentTarget).attr("value");
 
     //Send request to get user details
@@ -21,8 +21,22 @@ $(document).ready(()=> {
       },
       body: JSON.stringify({"user_id": user_id}),
     })
-    .then(response =>{
-      alert(response.json())
+    .then((response) => {
+      if (response.status == 200){
+        return response.json()
+      }
+      else{
+        throw Error("Error retrieving user details.")
+      }
+    })
+    .then(user => {
+      $("#profile-pic").html(user.username.slice(0,1))
+      $("#name").html(user.first_name + " " + user.last_name);
+      $("#username").html(user.username);
+      $("#email").html(user.email);
+    })
+    .catch(error => {
+      alert(error.message);
     });
 
   });
