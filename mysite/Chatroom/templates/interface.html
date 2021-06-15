@@ -13,6 +13,14 @@
   <nav class = "col-md-2 d-none d-md-block bg-light sidebar">
     <div class = "sidebar-sticky">
       <ul class = "nav flex-column">
+        {% for group in chat_groups %}
+          <li class = "nav-item">
+            <div class="circle" id="chat-profile-pic">
+              <span class="profile-pic-initial">C1</span>
+  					</div>
+            <a class = "nav-link" href="#">{{group}}</a>
+          </li>
+        {% endfor %}
         <li class = "nav-item">
           <div class="circle" id="chat-profile-pic">
             <span class="profile-pic-initial">C1</span>

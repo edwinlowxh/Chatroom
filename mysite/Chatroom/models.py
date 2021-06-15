@@ -16,4 +16,4 @@ class group_members(models.Model):
         ordering=['group']
 
     def __str__(self):
-        return self.member.username
+        return self.group.group_name

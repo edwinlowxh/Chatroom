@@ -51,7 +51,9 @@ def register(request):
 
 def chat(request):
     if request.user.is_authenticated:
-        return render(request, "interface.html");
+        chat_groups = group_members.objects.filter(member = request.user)
+        content = {'chat_groups': chat_groups}
+        return render(request, "interface.html", content)
     else:
         return redirect('/Chatroom/login')
 
