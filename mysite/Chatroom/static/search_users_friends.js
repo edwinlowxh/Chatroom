@@ -3,9 +3,11 @@ $(document).ready(()=> {
   if (pathname == "/Chatroom/friends"){
     document.title = "Friends";
     $(".user-details").append('<span id="email"></span><label>Email </label>');
+    $("#send-message-add-friend").append('<div id="send-message"><span class="material-icons" id="send-message-icon">chat</span><span>Send Message</span></div>');
   }
   else{
     document.title = "Users";
+    $("#send-message-add-friend").append('<div id="add-friend"><span class="material-icons" id="person-add-icon">person_add</span><span>Add Friend</span></div>');
   }
 
   $(".list-group-item").click(e=> {
