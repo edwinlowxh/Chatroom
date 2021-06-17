@@ -73,11 +73,15 @@ def new_group(request):
                 for member in form.cleaned_data['users_to_add']:
                     new_member = group_members(member = User.objects.get(id = member), group = groups.objects.get(group_name = group_name))
                     new_member.save()
+
+                #Add self
+                new_member = group_members(member = User.objects.get(id = request.user.id), group = groups.objects.get(group_name = group_name))
+                new_member.save()
             else:
                 #if form is invalid get errors
                 print(form.errors)
                 error = True;
-        users = User.objects.all().exclude(is_superuser = True)
+        users = User.objects.all().exclude(is_superuser = True).exclude(id = request.user.id)
         content = {'Users': users}
         if (error == True):
             #return errors
