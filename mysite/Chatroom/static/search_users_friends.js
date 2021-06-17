@@ -2,6 +2,7 @@ $(document).ready(()=> {
   var pathname = window.location.pathname;
   if (pathname == "/Chatroom/friends"){
     document.title = "Friends";
+    $(".user-details").append('<span id="email"></span><label>Email </label>');
   }
   else{
     document.title = "Users";

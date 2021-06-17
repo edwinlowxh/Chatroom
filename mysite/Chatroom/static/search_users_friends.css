@@ -93,3 +93,7 @@
   padding-top: 0;
   color: lightblue;
 }
+
+#send-message-add-friend span:hover{
+  cursor: pointer;
+}
