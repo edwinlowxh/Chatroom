@@ -71,17 +71,25 @@
   color:grey;
 }
 
-#send-message{
+#send-message-add-friend{
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   position: absolute;
+  justify-content: space-between;
   bottom: 0;
   right: 0;
   padding-bottom: 20px;
   padding-right: 10px;
 }
-#send-message-icon{
+
+#send-message-add-friend div{
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 20px;
+  padding-right: 10px;
+}
+
+#send-message-icon, #person-add-icon{
   padding-top: 0;
   color: lightblue;
 }
