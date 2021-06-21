@@ -28,6 +28,30 @@
   /* creates padding around scroll thumb */
 }
 
+.list-group-item{
+  flex-direction: row;
+}
+
+.list-group .material-icons{
+  font-size: 20px;
+  color: black;
+  padding-top: 0;
+}
+
+.list-group .material-icons:hover{
+  color: blue;
+  font-weight: bolder
+}
+
+.list-group #accept{
+  position: absolute;
+  right: 40px;
+}
+
+.list-group #reject{
+  position: absolute;
+  right: 5px;
+}
 
 .user-profile{
   display: flex;

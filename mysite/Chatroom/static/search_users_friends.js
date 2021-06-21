@@ -11,6 +11,13 @@ $(document).ready(()=> {
   }
 
   $(".list-group-item").click(e=> {
+    if ($(e.currentTarget).attr("type") == "requests"){
+      $("#profile-pic").empty();
+      $("#name").empty();
+      $("#username").empty();
+      $("#email").empty();
+      return;
+    }
     //alert($(e.currentTarget).attr("value"));
     var user_id = $(e.currentTarget).attr("value");
 
@@ -41,6 +48,7 @@ $(document).ready(()=> {
     .catch(error => {
       alert(error.message);
     });
-
   });
+
+  //Add friend
 })

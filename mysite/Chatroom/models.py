@@ -14,6 +14,14 @@ class group_members(models.Model):
 
     class Meta:
         ordering=['group']
-
+        
     def __str__(self):
         return self.group.group_name
+
+class friend_request(models.Model):
+    requestor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="requestor")
+    requestee = models.ForeignKey(User, on_delete=models.CASCADE, related_name="requestee")
+
+class friend(models.Model):
+    initiator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="initiator")
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="receiver")

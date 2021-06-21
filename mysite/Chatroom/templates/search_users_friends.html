@@ -12,6 +12,16 @@
 <div class="main-block">
   <div class="user-list">
     <ol class="list-group">
+      <h4>Friend Requests</h4>
+      <a href="#" class="list-group-item list-group-item-action" value={{user.id}} type="requests">
+        <span>john</span>
+        <span class="material-icons" id="accept">check</span>
+        <span class="material-icons" id="reject">close</span>
+      </a>
+    </ol>
+    <h4 class="pt-4">Friends</h4>
+
+    <ol class="list-group">
       {% csrf_token %}
       {% for user in Users %}
         <a href="#" class="list-group-item list-group-item-action" value={{user.id}}>{{user.username}}</a>
