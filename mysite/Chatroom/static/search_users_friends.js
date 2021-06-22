@@ -3,19 +3,18 @@ $(document).ready(()=> {
   if (pathname == "/Chatroom/friends"){
     document.title = "Friends";
     $(".user-details").append('<span id="email"></span><label>Email </label>');
-    $("#send-message-add-friend").append('<div id="send-message"><span class="material-icons" id="send-message-icon">chat</span><span>Send Message</span></div>');
   }
   else{
     document.title = "Users";
-    $("#send-message-add-friend").append('<div id="add-friend"><span class="material-icons" id="person-add-icon">person_add</span><span>Add Friend</span></div>');
   }
 
-  $(".list-group-item").click(e=> {
+  $(".list-group-item").on('click', e=> {
     if ($(e.currentTarget).attr("type") == "requests"){
       $("#profile-pic").empty();
       $("#name").empty();
       $("#username").empty();
       $("#email").empty();
+      $("#send-message-add-friend").empty();
       return;
     }
     //alert($(e.currentTarget).attr("value"));
@@ -29,7 +28,7 @@ $(document).ready(()=> {
         'X-Requested-With': 'XMLHttpRequest',
         'X-CSRFToken': $("input[name=csrfmiddlewaretoken]").val(),
       },
-      body: JSON.stringify({"user_id": user_id}),
+      body: JSON.stringify({"user_id": user_id, "function": "user info"}),
     })
     .then((response) => {
       if (response.status == 200){
@@ -44,11 +43,54 @@ $(document).ready(()=> {
       $("#name").html(user.first_name + " " + user.last_name);
       $("#username").html(user.username);
       $("#email").html(user.email);
+      if (pathname == "/Chatroom/friends"){
+        $("#send-message-add-friend").html('<div id="send-message"><span class="material-icons" id="send-message-icon">chat</span><span>Send Message</span></div>');
+        $("#send-message-add-friend").attr("user_id", user.id);
+      }
+      else{
+        $("#send-message-add-friend").html('<div id="add-friend"><span class="material-icons" id="person-add-icon" onclick=>person_add</span><span>Add Friend</span></div>');
+        $("#send-message-add-friend").attr("user_id", user.id);
+      }
     })
     .catch(error => {
       alert(error.message);
     });
   });
 
-  //Add friend
+  $("#send-message-add-friend").on('click', "#add-friend span", e=> {
+    //User-id of target
+    user_id = $(e.currentTarget).parent().parent().attr("user_id");
+
+    //Send POST request to add friend
+    fetch(window.location.pathname, {
+      method: "POST",
+      headers:{
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRFToken': $("input[name=csrfmiddlewaretoken]").val(),
+      },
+      body: JSON.stringify({"user_id": user_id, "function": "add friend"}),
+    })
+    .then((response) => {
+      if (response.status == 200){
+        return response.json()
+      }
+      else{
+        //Throw error message
+        throw Error("Error adding friend");
+      }
+    })
+    .then(response => {
+      if (response.success == "True"){
+        alert(response.message);
+      }
+      else{
+        throw Error(response.error);
+      }
+    })
+    .catch(error => {
+      alert(error.message);
+    });
+  });
+
 })

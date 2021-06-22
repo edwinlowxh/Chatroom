@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import RegistrationForm, LoginForm, NewGroupForm
-from .models import groups, group_members
+from .models import groups, group_members, friend_request, friend
 import json
 
 # Create your views here.
@@ -93,16 +93,38 @@ def new_group(request):
 def search_users(request):
     if request.user.is_authenticated:
         if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
-            user_id = json.load(request)['user_id']
-            #Query for user using user_id
-            try:
-                user = User.objects.get(id = user_id)
-            except ObjectDoesNotExist:
-                return JsonResponse(status = 400)
-            #Send back
-            return JsonResponse({"first_name": user.first_name, "last_name": user.last_name, "email": user.email, "username": user.username}, status = 200)
+            #Request body
+            body = json.load(request)
+            user_id = body['user_id']
+
+            #Get user info
+            if (body['function'] == "user info"):
+                #Query for user using user_id
+                try:
+                    user = User.objects.get(id = user_id)
+                except ObjectDoesNotExist:
+                    return JsonResponse(status = 400)
+                #Send back
+                return JsonResponse({"first_name": user.first_name, "last_name": user.last_name, "email": user.email, "username": user.username, "id": user.id}, status = 200)
+
+            #Add friend
+            if (body['function'] == "add friend"):
+                #Query for existing friend request
+                try:
+                    friendRequest = friend_request.objects.get(requestor=request.user, requestee=User.objects.get(id=user_id))
+                except ObjectDoesNotExist:
+                    try:
+                        friendRequest = friend_request.objects.get(requestor=User.objects.get(id=user_id), requestee=request.user)
+                    except ObjectDoesNotExist:
+                        #Add to model
+                        new_request = friend_request(requestor=request.user, requestee=User.objects.get(id=user_id))
+                        new_request.save()
+                        return JsonResponse({"success": "True", "message": "Friend request sent"},status = 200)
+
+                #If friend request exist return message
+                return JsonResponse({"success": "False", "error": "Request already made"}, status = 200)
         else:
-            content = {'Users': User.objects.all().exclude(is_superuser = True).values('id', 'username', 'first_name', 'last_name', 'email')}
+            content = {'Users': User.objects.all().exclude(is_superuser = True).exclude(id = request.user.id).values('id', 'username', 'first_name', 'last_name', 'email')}
             #print(content['Users'])
             return render(request, "search_users_friends.html", content);
     else:
