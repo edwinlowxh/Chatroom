@@ -11,20 +11,32 @@
 {% block main %}
 <div class="main-block">
   <div class="user-list">
-    <ol class="list-group">
-      <h4>Friend Requests</h4>
-      <a href="#" class="list-group-item list-group-item-action" value={{user.id}} type="requests">
-        <span>john</span>
-        <span class="material-icons" id="accept">check</span>
-        <span class="material-icons" id="reject">close</span>
-      </a>
+    {% csrf_token %}
+    <ol class="list-group friend-request">
+      {% if friendRequests %}
+        <h4>Friend Requests</h4>
+      {% endif %}
+      {% for request in friendRequests %}
+        <a href="#" class="list-group-item list-group-item-action" value={{request.requestor.id}} type="requests">
+          <span>{{request.requestor.username}}</span>
+          <span class="material-icons" id="accept">check</span>
+          <span class="material-icons" id="reject">close</span>
+        </a>
+      {% endfor %}
     </ol>
     <h4 class="pt-4">Friends</h4>
 
     <ol class="list-group">
-      {% csrf_token %}
       {% for user in Users %}
         <a href="#" class="list-group-item list-group-item-action" value={{user.id}}>{{user.username}}</a>
+      {% endfor %}
+
+      {% for friend in friends %}
+        {% if friend.initiator == request.user %}
+          <a href="#" class="list-group-item list-group-item-action" value={{friend.receiver.id}}>{{friend.receiver.username}}</a>
+        {% else %}
+          <a href="#" class="list-group-item list-group-item-action" value={{friend.receiver.id}}>{{friend.initiator.username}}</a>
+        {% endif %}
       {% endfor %}
     </ol>
   </div>

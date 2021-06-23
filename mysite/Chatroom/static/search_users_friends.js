@@ -73,7 +73,7 @@ $(document).ready(()=> {
     })
     .then((response) => {
       if (response.status == 200){
-        return response.json()
+        return response.json();
       }
       else{
         //Throw error message
@@ -91,6 +91,36 @@ $(document).ready(()=> {
     .catch(error => {
       alert(error.message);
     });
+  });
+
+  //Accept or reject friend request
+  $(".list-group.friend-request").on("click", ".material-icons", e => {
+    user_id = $(e.currentTarget).parent().attr("value");
+
+    fetch(window.location.pathname, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRFToken': $("input[name=csrfmiddlewaretoken]").val(),
+      },
+      body: JSON.stringify({"user_id": user_id, "choice": $(e.currentTarget).attr("id")}),
+    })
+    .then(response => {
+      if (response.status == 200){
+        return response.json();
+      }
+      else{
+        //Throw error message
+        throw Error("Error accepting/rejecting friend request");
+      }
+    })
+    .then(response => {
+      $(e.currentTarget).parent().remove();
+    })
+    .catch(error => {
+      alert(error);
+    })
   });
 
 })

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 from .forms import RegistrationForm, LoginForm, NewGroupForm
 from .models import groups, group_members, friend_request, friend
 import json
@@ -132,4 +133,24 @@ def search_users(request):
 
 
 def friends(request):
-    return render(request, "search_users_friends.html");
+    if request.user.is_authenticated:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
+            body = json.load(request)
+
+            #Accept
+            if body["choice"] == "accept":
+                newFriend = friend(initiator=User.objects.get(id=body["user_id"]), receiver=request.user)
+                newFriend.save()
+
+            #Delete regardless accept or reject
+            friend_request.objects.filter(requestor=User.objects.get(id=body["user_id"]), requestee=request.user).delete()
+
+            return JsonResponse({"success": "true"}, status=200)
+
+        friendRequests = friend_request.objects.filter(requestee=request.user)
+        friends = friend.objects.filter(Q(initiator=request.user ) | Q(receiver=request.user))
+        print(friends)
+        content = {"friendRequests": friendRequests, "friends": friends}
+        return render(request, "search_users_friends.html", content)
+    else:
+        return redirect('/Chatroom/login')
