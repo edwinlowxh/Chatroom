@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{%  block script %}{% endblock %}
+{%  block script %}<script src="{% static "interface.js" %}" type="text/javascript"></script>{% endblock %}
 
 {% block css %}<link rel="stylesheet" href="{% static 'interface.css' %}">{% endblock %}
 
@@ -129,6 +129,7 @@
       </div>
 
       <div id="chat-container-input">
+        {% csrf_token %}
         <form id="chatbox">
           <input type="text" id="message-input" name="message" placeholder="Write your mesage here...">
         </form>
