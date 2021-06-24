@@ -104,7 +104,7 @@ $(document).ready(()=> {
         'X-Requested-With': 'XMLHttpRequest',
         'X-CSRFToken': $("input[name=csrfmiddlewaretoken]").val(),
       },
-      body: JSON.stringify({"user_id": user_id, "choice": $(e.currentTarget).attr("id")}),
+      body: JSON.stringify({"user_id": user_id, "choice": $(e.currentTarget).attr("id"), "function": "accept/reject"}),
     })
     .then(response => {
       if (response.status == 200){

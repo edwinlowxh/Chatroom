@@ -137,19 +137,30 @@ def friends(request):
         if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
             body = json.load(request)
 
-            #Accept
-            if body["choice"] == "accept":
-                newFriend = friend(initiator=User.objects.get(id=body["user_id"]), receiver=request.user)
-                newFriend.save()
+            #Accept/Reject friend request
+            if body["function"] == "accept/reject":
+                if body["choice"] == "accept":
+                    newFriend = friend(initiator=User.objects.get(id=body["user_id"]), receiver=request.user)
+                    newFriend.save()
 
-            #Delete regardless accept or reject
-            friend_request.objects.filter(requestor=User.objects.get(id=body["user_id"]), requestee=request.user).delete()
+                #Delete regardless accept or reject
+                friend_request.objects.filter(requestor=User.objects.get(id=body["user_id"]), requestee=request.user).delete()
 
-            return JsonResponse({"success": "true"}, status=200)
+                return JsonResponse({"success": "true"}, status=200)
 
+            #Get user info
+            elif body["function"] == "user info":
+                #Query for user using user_id
+                try:
+                    user = User.objects.get(id = body["user_id"])
+                except ObjectDoesNotExist:
+                    return JsonResponse(status = 400)
+                #Send back
+                return JsonResponse({"first_name": user.first_name, "last_name": user.last_name, "email": user.email, "username": user.username, "id": user.id}, status = 200)
+
+        #Get friend requests and friends
         friendRequests = friend_request.objects.filter(requestee=request.user)
         friends = friend.objects.filter(Q(initiator=request.user ) | Q(receiver=request.user))
-        print(friends)
         content = {"friendRequests": friendRequests, "friends": friends}
         return render(request, "search_users_friends.html", content)
     else:

@@ -24,7 +24,10 @@
         </a>
       {% endfor %}
     </ol>
-    <h4 class="pt-4">Friends</h4>
+    
+    {% if friends %}
+      <h4 class="pt-4">Friends</h4>
+    {% endif %}
 
     <ol class="list-group">
       {% for user in Users %}
@@ -35,7 +38,7 @@
         {% if friend.initiator == request.user %}
           <a href="#" class="list-group-item list-group-item-action" value={{friend.receiver.id}}>{{friend.receiver.username}}</a>
         {% else %}
-          <a href="#" class="list-group-item list-group-item-action" value={{friend.receiver.id}}>{{friend.initiator.username}}</a>
+          <a href="#" class="list-group-item list-group-item-action" value={{friend.initiator.id}}>{{friend.initiator.username}}</a>
         {% endif %}
       {% endfor %}
     </ol>
