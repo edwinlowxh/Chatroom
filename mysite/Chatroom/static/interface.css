@@ -62,6 +62,7 @@
 
 .message-container-message{
   max-width: 50%;
+  min-width: 15%;
 	margin-top: 10px;
 	margin-bottom: auto;
   border-style: solid;
