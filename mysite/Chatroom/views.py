@@ -56,6 +56,7 @@ def chat(request):
         if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
             body = json.load(request)
             print(body["message"])
+            return JsonResponse({}, status = 200)
 
         chat_groups = group_members.objects.filter(member = request.user)
         content = {'chat_groups': chat_groups}

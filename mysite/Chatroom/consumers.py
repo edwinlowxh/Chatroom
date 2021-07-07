@@ -28,6 +28,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = text_data_json['message']
         user_id = text_data_json["user_id"]
         first_name = text_data_json["first_name"]
+        time = text_data_json["time"]
 
         # Send message to room group
         await self.channel_layer.group_send(
@@ -36,7 +37,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'type': 'chat_message',
                 'message': message,
                 'user_id': user_id,
-                'first_name': first_name
+                'first_name': first_name,
+                'time': time
             }
         )
 
@@ -45,10 +47,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = event['message']
         user_id = event["user_id"]
         first_name = event["first_name"]
+        time = event["time"]
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
             'message': message,
             'user_id': user_id,
-            'first_name': first_name
+            'first_name': first_name,
+            'time': time
         }))
