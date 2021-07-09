@@ -81,22 +81,9 @@ $(document).ready(()=> {
         'message': message,
         'user_id': user_id,
         'first_name': first_name,
-        'time': hour.toString() + ':' + minutes.toString() + ' ' + meridiem
+        'time': String(hour).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ' ' + meridiem
       }));
       $("#message-input").val("");
-
-      //Append message to chat container
-      $("#message-box").append('<div class="d-flex justify-content-end mb-4 message-container">\
-                                <div class="mr-3 message-container-message">' + message +
-                                  '<div class="d-flex justify-content-start message-information">\
-                                    <span id=>' + hour + ':' + minutes + ' ' + meridiem + ', Today' + '</span>\
-                                    <span class="material-icons" id="delete-icon">delete</span>\
-                                  </div>\
-                                </div>\
-                                <div class="circle" id="profile-pic">\
-                                  <span class="profile-pic-initial">' + first_name.slice(0, 1).toUpperCase() + '</span>\
-                                </div>\
-                              </div>');
 
       //Send request to store message in database
       fetch(window.location.pathname, {
@@ -117,9 +104,20 @@ $(document).ready(()=> {
           throw Error("Message failed to sent");
         }
       })
-      // .then(response => {
-      //
-      // })
+      .then(response => {
+        //Append message to chat container
+        $("#message-box").append('<div class="d-flex justify-content-end mb-4 message-container">\
+                                  <div class="mr-3 message-container-message">' + message +
+                                    '<div class="d-flex justify-content-start message-information">\
+                                      <span id=>' + String(hour).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ' ' + meridiem + ', Today' + '</span>\
+                                      <span class="material-icons" id="delete-icon">delete</span>\
+                                    </div>\
+                                  </div>\
+                                  <div class="circle" id="profile-pic">\
+                                    <span class="profile-pic-initial">' + first_name.slice(0, 1).toUpperCase() + '</span>\
+                                  </div>\
+                                </div>');
+      })
       .catch(error => {
         alert(error.message);
       });

@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from .forms import RegistrationForm, LoginForm, NewGroupForm
-from .models import groups, group_members, friend_request, friend
+from .models import groups, group_members, friend_request, friend, message
 import json
 
 # Create your views here.
@@ -55,7 +55,8 @@ def chat(request):
         #Handle message
         if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
             body = json.load(request)
-            print(body["message"])
+            new_message = message(group = groups.objects.get(id=int(body["group_id"])), sender = request.user, message = body["message"])
+            new_message.save()
             return JsonResponse({}, status = 200)
 
         chat_groups = group_members.objects.filter(member = request.user)

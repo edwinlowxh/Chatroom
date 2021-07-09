@@ -14,9 +14,6 @@ class group_members(models.Model):
 
     class Meta:
         ordering=['group']
-        
-    def __str__(self):
-        return self.group.group_name
 
 class friend_request(models.Model):
     requestor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="requestor")
@@ -25,3 +22,9 @@ class friend_request(models.Model):
 class friend(models.Model):
     initiator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="initiator")
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="receiver")
+
+class message(models.Model):
+    group = models.ForeignKey('groups', on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    time = models.DateTimeField(auto_now_add=True)
