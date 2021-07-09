@@ -28,3 +28,6 @@ class message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField()
     time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering=['-time', 'sender', 'group']
