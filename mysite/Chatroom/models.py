@@ -30,4 +30,4 @@ class message(models.Model):
     time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering=['-time', 'sender', 'group']
+        ordering=['time', 'sender', 'group']

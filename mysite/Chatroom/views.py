@@ -52,12 +52,29 @@ def register(request):
 
 def chat(request):
     if request.user.is_authenticated:
-        #Handle message
+
         if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
             body = json.load(request)
-            new_message = message(group = groups.objects.get(id=int(body["group_id"])), sender = request.user, message = body["message"])
-            new_message.save()
-            return JsonResponse({}, status = 200)
+
+            #Handle sent message
+            if (body["function"] == "message"):
+                new_message = message(group = groups.objects.get(id=int(body["group_id"])), sender = request.user, message = body["message"])
+                new_message.save()
+                return JsonResponse({}, status = 200)
+
+            #Load message chat window
+            if (body["function"] == "messageHistory"):
+                # Query for existing messages in group
+                query_group = groups.objects.get(id=body["group_id"])
+                messages = list(message.objects.filter(group=query_group).values('id',
+                                                                                 'group_id',
+                                                                                 'sender__id',
+                                                                                 'sender__first_name',
+                                                                                 'sender__last_name',
+                                                                                 'message',
+                                                                                 'time'))
+
+                return JsonResponse({"messages": messages}, status=200)
 
         chat_groups = group_members.objects.filter(member = request.user)
         content = {'chat_groups': chat_groups}
