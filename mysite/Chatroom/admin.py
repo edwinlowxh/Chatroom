@@ -8,8 +8,8 @@ class group_membersAdmin(admin.ModelAdmin):
     list_display = ('member', 'group')
 
 class groupsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'group_name')
-    inlines = [group_membersInline]
+    list_display = ('id', 'group_name', 'last_modified')
+    inlines = [group_membersInline, ]
 
 class friend_requestAdmin(admin.ModelAdmin):
     list_display = ('requestor', 'requestee')

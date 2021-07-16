@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from .forms import RegistrationForm, LoginForm, NewGroupForm
 from .models import groups, group_members, friend_request, friend, message
+import time
 import json
 
 # Create your views here.
@@ -58,8 +59,14 @@ def chat(request):
 
             #Handle sent message
             if (body["function"] == "message"):
-                new_message = message(group = groups.objects.get(id=int(body["group_id"])), sender = request.user, message = body["message"])
+                # Create and save message to database
+                chat_group = groups.objects.get(id=int(body["group_id"]))
+                new_message = message(group = chat_group, sender = request.user, message = body["message"])
                 new_message.save()
+
+                # Update last modified time
+                # chat_group.last_modified = time.localtime()
+                chat_group.save()
                 return JsonResponse({}, status = 200)
 
             #Load message chat window
@@ -76,7 +83,7 @@ def chat(request):
 
                 return JsonResponse({"messages": messages}, status=200)
 
-        chat_groups = group_members.objects.filter(member = request.user)
+        chat_groups = group_members.objects.filter(member = request.user).order_by("-group__last_modified")
         content = {'chat_groups': chat_groups}
         return render(request, "interface.html", content)
     else:
