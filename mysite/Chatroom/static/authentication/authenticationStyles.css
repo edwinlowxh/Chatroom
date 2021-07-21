@@ -17,7 +17,7 @@
   margin-bottom: auto;
 }
 
-#loginform, #registerform{
+#loginform, #registerform, #changePasswordform{
   display: flex;
   flex-direction: column;
   width: 30%;

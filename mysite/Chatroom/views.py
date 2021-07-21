@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
-from .forms import RegistrationForm, LoginForm, NewGroupForm
+from .forms import RegistrationForm, LoginForm, NewGroupForm, changePasswordForm
 from .models import groups, group_members, friend_request, friend, message
 import time
 import json
@@ -194,5 +194,24 @@ def friends(request):
         friends = friend.objects.filter(Q(initiator=request.user ) | Q(receiver=request.user))
         content = {"friendRequests": friendRequests, "friends": friends}
         return render(request, "search_users_friends.html", content)
+    else:
+        return redirect('/Chatroom/login')
+
+def settings(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form = changePasswordForm(request.POST, user=request.user)
+            if form.is_valid():
+                password = form.cleaned_data['password1']
+                print(password)
+                user = User.objects.get(id = request.user.id)
+                user.set_password(password)
+                user.save()
+
+            errors = {'errors': form.errors}
+            print(errors)
+            return render(request, "settings.html", errors)
+
+        return render(request, "settings.html")
     else:
         return redirect('/Chatroom/login')

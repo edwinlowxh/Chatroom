@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{%  block script %}{% endblock %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'authentication/authenticationStyles.css' %}">{% endblock %}
+
+{% block title %}Settings{% endblock %}
+
+{% block main %}
+<div class="main-form">
+
+  <div class="form">
+    <form class="form-group" id="changePasswordform" action='/Chatroom/settings' method='post'>
+      {% csrf_token %}
+      <h2>Change Password</h2>
+
+      <div class="input-container">
+        <span class="mr-3 material-icons">password</span>
+        <input class="form-control" type="password" name="password" id="password" placeholder="Old Password"><br>
+      </div>
+      <span id="error">{{ errors.password.as_text }}</span>
+
+      <div class="input-container">
+        <span class="mr-3 material-icons">password</span>
+        <input class="form-control" type="password" name="password1" id="password1" placeholder="New Password" onkeyup="keyupfunction()"><br>
+      </div>
+      <span id="error">{{ errors.password1.as_text }}</span>
+
+
+      <div class="input-container">
+        <span class="mr-3 material-icons">password</span>
+        <input class="form-control" type="password" name="password2" id="password2" placeholder="Confirm Password" onkeyup="keyupfunction()"><br>
+      </div>
+      <span id="error">{{ errors.password2.as_text }}</span>
+
+      <div class="input-container">
+        <span class="mr-3 material-icons">edit</span>
+        <button class="form-control" type="submit" name="Change" id="Change">Change</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+{% endblock %}

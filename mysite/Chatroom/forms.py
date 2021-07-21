@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from .models import groups
 
 
@@ -88,3 +89,46 @@ class NewGroupForm(forms.Form):
             return group_name
         else:
             raise forms.ValidationError('Group name taken')
+
+class changePasswordForm(forms.Form):
+    password = forms.CharField()
+    password1 = forms.CharField()
+    password2 = forms.CharField()
+
+
+    def clean_password(self):
+        password = self.cleaned_data['password']
+
+        if not self.user.check_password(password):
+            raise forms.ValidationError('Invalid old password')
+        else:
+            return password
+
+    def clean_password1(self):
+
+        password1 = self.cleaned_data['password1']
+
+        try:
+            validate_password(password1, self.user)
+        except ValidationError as e:
+            raise ValidationError(e)
+
+        return password1
+
+    def clean_password2(self):
+        password2 = self.cleaned_data['password2']
+
+        try:
+            password = self.cleaned_data['password1']
+        except KeyError:
+            # If password1 has a ValidationError
+            return
+
+        if (password != password2):
+            raise forms.ValidationError('Passwords do not match')
+
+        return password2
+
+    def __init__(self, *args,**kwargs):
+        self.user = kwargs.pop('user')
+        super(changePasswordForm, self).__init__(*args,**kwargs)
