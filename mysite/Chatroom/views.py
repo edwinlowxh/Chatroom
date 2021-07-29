@@ -10,9 +10,6 @@ import time
 import json
 
 # Create your views here.
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
 def _login(request):
     if request.user.is_authenticated:
         return redirect(chat)
@@ -83,6 +80,30 @@ def chat(request):
 
                 return JsonResponse({"messages": messages}, status=200)
 
+            #Query for users that are not yet added in the group
+            if (body["function"] == "users_not_added"):
+                group = groups.objects.get(id=body['group_id'])
+                members = group_members.objects.all().filter(group=group)
+                existing_members = []
+                for i in members:
+                    existing_members.append(i.member.id)
+                new_users = list(User.objects.all().exclude(id__in=existing_members).exclude(is_superuser=True).values('id', 'first_name', 'last_name', 'username'))
+                return JsonResponse({"new_users": new_users}, status=200)
+
+            #Add new users to group
+            if (body["function"] == "add_users"):
+                users_to_add = body["users"]
+                group_id = body["group_id"]
+
+                #Save to database
+                for id in users_to_add:
+                    user = User.objects.get(id = int(id))
+                    new_member = group_members(member = user, group = groups.objects.get(id = group_id))
+                    new_member.save()
+
+                return JsonResponse({}, status=200)
+
+        #Return chat groups that user is included. Ordered by last message sent
         chat_groups = group_members.objects.filter(member = request.user).order_by("-group__last_modified")
         content = {'chat_groups': chat_groups}
         return render(request, "interface.html", content)
@@ -113,11 +134,15 @@ def new_group(request):
                 #if form is invalid get errors
                 print(form.errors)
                 error = True;
+
+        #Get all users excluding admin(/superusers)
         users = User.objects.all().exclude(is_superuser = True).exclude(id = request.user.id)
         content = {'Users': users}
+
         if (error == True):
             #return errors
             content['errors'] = form.errors
+
         return render(request, "newGroup.html", content);
     else:
         return redirect('/Chatroom/login')
@@ -143,9 +168,11 @@ def search_users(request):
             if (body['function'] == "add friend"):
                 #Query for existing friend request
                 try:
+                    #Check if friend request is existing
                     friendRequest = friend_request.objects.get(requestor=request.user, requestee=User.objects.get(id=user_id))
                 except ObjectDoesNotExist:
                     try:
+                        #Check if friend request is existing
                         friendRequest = friend_request.objects.get(requestor=User.objects.get(id=user_id), requestee=request.user)
                     except ObjectDoesNotExist:
                         #Add to model

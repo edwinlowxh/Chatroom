@@ -10,13 +10,34 @@
 }
 
 .nav-item {
+  max-width: 100%;
   margin-left: 0;
   margin-top: 10px;
   padding:3px;
+  align-items: center;
 }
 
 .nav-link {
   color: #333;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.nav-item .nav-link:hover{
+  color: blue;
+  cursor:grab;
+}
+
+.nav-item #more-icon{
+  float: right;
+  padding-top: 0;
+  color: black;
+}
+
+.nav-item #more-icon:hover{
+  color: blue;
+  cursor:help;
 }
 
 #chat-container {
@@ -78,8 +99,10 @@
   display: flex; /* or inline-flex */
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  max-width: 40px;
+  max-height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   border-radius: 50%;
   border-width: thin;
   border-style: solid;
@@ -146,4 +169,60 @@
   margin-top: auto;
   margin-bottom: auto;
   color: grey;
+}
+
+#groupSettings {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+
+#groupSettings .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+#groupSettings .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal .input-container{
+  margin-left: auto;
+  margin-right: auto;
+  align-items: baseline;
+}
+
+.modal .input-container .material-icons{
+  color: black;
+}
+
+#users_to_add{
+  min-width: 300px;
+}
+
+.select-multiple-instructions, .error{
+  margin-left: auto;
+  margin-right: auto;
 }
