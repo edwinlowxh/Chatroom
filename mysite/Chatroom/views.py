@@ -18,11 +18,11 @@ def _login(request):
             form = LoginForm(request.POST)
             if form.is_valid():
                 user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-                if user is not None:
+                if user is not None:    #User authenticated
                     login(request, user)
                     return redirect(chat)
                 else:
-                    form.add_error('password', 'Invalid Password')
+                    form.add_error('password', 'Invalid Password')  #Wrong password
             errors = {'errors': form.errors}
             print(errors)
             return render(request, "authentication/login.html", errors)

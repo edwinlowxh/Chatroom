@@ -20,6 +20,7 @@ class RegistrationForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
+        #Check if email is taken
         try:
             User.objects.get(email = email)
             print(User.objects.get(email = email))
@@ -31,6 +32,7 @@ class RegistrationForm(UserCreationForm):
     def clean_username(self):
         username = self.cleaned_data.get('username')
 
+        #Ensure length of username is less than 50 characters
         if (len(username) > 50):
             raise forms.ValidationError('Username must be less than 50 characters')
         try:
@@ -43,6 +45,7 @@ class RegistrationForm(UserCreationForm):
     def clean_first_name(self):
         first_name = self.cleaned_data.get('first_name')
 
+        #Ensure length of first name is less than 50 characters
         if (len(first_name) > 50):
             raise forms.ValidationError('First name must be less than 50 characters')
 
@@ -51,6 +54,7 @@ class RegistrationForm(UserCreationForm):
     def clean_last_name(self):
         last_name = self.cleaned_data.get('last_name')
 
+        #Ensure length of last name is less than 50 characters
         if (len(last_name) > 50):
             raise forms.ValidationError('Last name must be less than 50 characters')
 
@@ -65,6 +69,7 @@ class LoginForm(forms.Form):
         model = User
         fields = ('username', 'password')
 
+    #Check if username exists
     def clean_username(self):
         username = self.cleaned_data.get('username')
         try:
@@ -81,6 +86,8 @@ class NewGroupForm(forms.Form):
 
     def clean_group_name(self):
         group_name = self.cleaned_data['group_name']
+
+        #Ensure group name is less than 50 characters
         if (len(group_name) > 50):
             raise forms.ValidationError('Group name must be less than 50 characters')
         try:
@@ -95,7 +102,7 @@ class changePasswordForm(forms.Form):
     password1 = forms.CharField()
     password2 = forms.CharField()
 
-
+    #Check old password for validity
     def clean_password(self):
         password = self.cleaned_data['password']
 
@@ -104,6 +111,7 @@ class changePasswordForm(forms.Form):
         else:
             return password
 
+    #Ensure new password meets requirements
     def clean_password1(self):
 
         password1 = self.cleaned_data['password1']
@@ -115,6 +123,7 @@ class changePasswordForm(forms.Form):
 
         return password1
 
+    #Ensure new passwords matches
     def clean_password2(self):
         password2 = self.cleaned_data['password2']
 
