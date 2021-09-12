@@ -2,7 +2,9 @@
 
 {% load static %}
 
-{% block script %}<script src="{% static "search_users_friends.js" %}" type="text/javascript"></script>{% endblock %}
+{% block script %}
+  <script src="{% static "search_users_friends.js" %}" type="text/javascript"></script>
+{% endblock %}
 
 {% block css %}<link rel="stylesheet" href="{% static 'search_users_friends.css' %}">{% endblock %}
 
@@ -24,7 +26,7 @@
         </a>
       {% endfor %}
     </ol>
-    
+
     {% if friends %}
       <h4 class="pt-4">Friends</h4>
     {% endif %}

@@ -43,11 +43,7 @@ $(document).ready(()=> {
       $("#name").html(user.first_name + " " + user.last_name);
       $("#username").html(user.username);
       $("#email").html(user.email);
-      if (pathname == "/Chatroom/friends"){
-        $("#send-message-add-friend").html('<div id="send-message"><span class="material-icons" id="send-message-icon">chat</span><span>Send Message</span></div>');
-        $("#send-message-add-friend").attr("user_id", user.id);
-      }
-      else{
+      if (pathname == "/Chatroom/search_users"){
         $("#send-message-add-friend").html('<div id="add-friend"><span class="material-icons" id="person-add-icon" onclick=>person_add</span><span>Add Friend</span></div>');
         $("#send-message-add-friend").attr("user_id", user.id);
       }

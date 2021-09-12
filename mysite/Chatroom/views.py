@@ -168,20 +168,29 @@ def search_users(request):
             if (body['function'] == "add friend"):
                 #Query for existing friend request
                 try:
-                    #Check if friend request is existing
+                    #Check if friend request exists
                     friendRequest = friend_request.objects.get(requestor=request.user, requestee=User.objects.get(id=user_id))
                 except ObjectDoesNotExist:
                     try:
-                        #Check if friend request is existing
+                        #Check if friend request exists
                         friendRequest = friend_request.objects.get(requestor=User.objects.get(id=user_id), requestee=request.user)
                     except ObjectDoesNotExist:
-                        #Add to model
-                        new_request = friend_request(requestor=request.user, requestee=User.objects.get(id=user_id))
-                        new_request.save()
-                        return JsonResponse({"success": "True", "message": "Friend request sent"},status = 200)
+                        try:
+                            #Check if friend exists
+                            friends = friend.objects.get(initiator= request.user, receiver=User.objects.get(id=user_id))
+                        except ObjectDoesNotExist:
+                            try:
+                                #Check if friend exists
+                                friends = friend.objects.get(initiator=User.objects.get(id=user_id), receiver=request.user)
+                            except ObjectDoesNotExist:
+                                #Add to model
+                                new_request = friend_request(requestor=request.user, requestee=User.objects.get(id=user_id))
+                                new_request.save()
+                                return JsonResponse({"success": "True", "message": "Friend request sent"},status = 200)
 
-                #If friend request exist return message
-                return JsonResponse({"success": "False", "error": "Request already made"}, status = 200)
+                #If friend request/friend exist return message
+                print("test")
+                return JsonResponse({"success": "False", "error": "Already Friends/Request already made"}, status = 200)
         else:
             content = {'Users': User.objects.all().exclude(is_superuser = True).exclude(id = request.user.id).values('id', 'username', 'first_name', 'last_name', 'email')}
             #print(content['Users'])
@@ -207,7 +216,7 @@ def friends(request):
                 return JsonResponse({"success": "true"}, status=200)
 
             #Get user info
-            elif body["function"] == "user info":
+            if body["function"] == "user info":
                 #Query for user using user_id
                 try:
                     user = User.objects.get(id = body["user_id"])
