@@ -9,6 +9,7 @@ Requirements:
 
 To start:
 1.  Navigate to mysite folder in command prompt
-2.  Run "docker run -p 6379:6379 -d redis:5"
-3.  Run "python manage.py runserver"
-4.  Navigate to "127.0.0.1:8000/Chatroom/login" to get started
+2.  Start Docker Desktop
+3.  Run "docker run -p 6379:6379 -d redis:5"
+4.  Run "python manage.py runserver"
+5.  Navigate to "127.0.0.1:8000/Chatroom/login" to get started
