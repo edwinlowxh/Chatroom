@@ -12,4 +12,4 @@ To start:
 2.  Start Docker Desktop
 3.  Run "docker run -p 6379:6379 -d redis:5"
 4.  Run "python manage.py runserver"
-5.  Navigate to "127.0.0.1:8000/Chatroom/login" to get started
+5.  Navigate to "http://127.0.0.1:8000/Chatroom/register" to get started
